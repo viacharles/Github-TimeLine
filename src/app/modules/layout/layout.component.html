@@ -1,0 +1,36 @@
+<div class="Layout">
+    <div class="Layout__Container">
+
+        <div class="Layout__Main">
+            <span>Github</span><span>TimeLine</span>
+            <ul class="Layout__TimeLine">
+                <li><input type="text" placeholder="輸入使用者名稱" [(ngModel)]='this.userName'>
+                    <button class="Layout__Button{{this.switchButton? 'Generate' : 'Delet' }}" (click)='this.switchButton? this.getRepos() : this.deletList()'>{{this.switchButton? 'Generate' : 'Delet' }}</button>
+                </li>
+                <li class="Layout__Card" *ngFor='let repo of this.repos '>
+                    <div>
+                        <div>
+                            <span>{{ repo.name }} <a href="{{repo.htmlUrl}}"><i class="fa fa-file"></i></a></span>
+                            <span>{{ repo.createdAt | date:'mediumDate' }}</span> ->
+                            <span>{{ repo.updatedAt | date:'mediumDate' }}</span>
+                        </div>
+                        <span>size {{ repo.size }}</span>
+                    </div>
+                    <div class="Layout__Descript">
+                        <!-- {{this.repos.description? this.repos.description:'沒有說明文字'}} -->
+                    </div>
+                    <div class='Layout__Commits'>
+                        <i class="fas fa-list-alt"></i>
+                        <a  *ngFor='let commit of repo.commits' [href]='commit.htmlUrl'>
+                            <ul class="Layout__CommitInfo">
+                                <li>{{commit.commit.message}}</li>
+                                <li>{{commit.commit.committer.date | date:'mediumDate'}}</li>
+                                <li>{{commit.committer.name}}</li>
+                            </ul>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
